@@ -1,0 +1,120 @@
+Question1
+using System;
+
+class Program
+{
+    public delegate void rectangleDelegate(double height,double width);
+
+    public void PrintArea(double height, double width)
+    {
+        Console.WriteLine("Area is: "+width*height);
+    }
+
+    public void PrintPerimeter(double height, double width)
+    {
+     Console.WriteLine("Perimeter is: "+2*(width+height));   
+    }
+
+    static void Main(string[] args)
+    {
+        Program m1=new Program();
+        Console.WriteLine( "Enter the width");
+        double width=double.Parse(Console.ReadLine());
+        Console.WriteLine( "Enter the height");
+        double height=double.Parse(Console.ReadLine()); 
+          rectangleDelegate m=new rectangleDelegate(m1.PrintArea)   ;
+          m.Invoke(width,height);
+         
+          rectangleDelegate m2=new rectangleDelegate(m1.PrintPerimeter)   ;
+          m2.Invoke(width,height);
+    }
+
+}
+-----------------------------------------------------------------------
+Question2
+using System;
+
+delegate void CalculateDelegate(int num1, int num2);
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Enter the num1");
+        int num1 = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Enter the num2");
+        int num2 = int.Parse(Console.ReadLine());
+
+        CalculateDelegate calcDelegate = new CalculateDelegate(Addition);
+        calcDelegate += Subtract;
+
+        calcDelegate.Invoke(num1, num2);
+
+        Console.ReadKey();
+    }
+
+    static void Addition(int num1, int num2)
+    {
+        int sum = num1 + num2;
+        Console.WriteLine("The sum is : {0}", sum);
+    }
+
+    static void Subtract(int num1, int num2)
+    {
+        int diff = num1 - num2;
+        Console.WriteLine("The subtraction is : {0}", diff);
+    }
+}
+---------------------------------------------------------------------------
+Question3
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+class Customer
+{
+    public string _firstName;
+    public string _lastName;
+
+    public Customer(string _firstName, string _lastName)
+    {
+        this._firstName = _firstName;
+        this._lastName = _lastName;
+    }
+
+    public void DisplayFirstName()
+    {
+        Console.WriteLine("First Name: "+this._firstName);
+    }
+
+    public void DisplayLastName()
+    {
+       Console.WriteLine("Last Name: "+this._lastName);
+    }
+}
+------------------------
+using System;
+
+class Program
+{
+    public delegate void NameDelegate();
+    static void Main(string[] args)
+    {
+        
+        Console.WriteLine("Enter the first name:");
+        string fname=Console.ReadLine();
+        Console.WriteLine("Enter the last name:");
+        string lname=Console.ReadLine();
+
+        Console.WriteLine("Customer Details");
+        Customer c1=new Customer(fname,lname);
+        NameDelegate obj1=new NameDelegate(c1.DisplayFirstName);
+        obj1.Invoke();
+
+        NameDelegate obj2=new NameDelegate(c1.DisplayLastName);
+        obj2.Invoke();
+      
+    }
+}
+
